@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- xxx Change With Your Information xxx -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no" />
+    <title> Sinok Logistics </title>
+    <meta name="author" content="Mannat Studio">
+    <meta name="description" content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis, natus.">
+    <meta name="keywords" content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis, natus.">
+        
+
+    <!-- xxx Favicon xxx -->
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico">
+
+    <!-- xxx Favicon xxx -->
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico">
+
+    <!-- xxx Favicon xxx -->
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico">
+   
+    <!-- Main Style CSSS -->
+
+    <link href="/assets/css/theme-plugins.min.css" rel="stylesheet">
+
+    <!-- Main Theme CSS -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+    
+    <!-- Responsive Theme CSS -->
+    <link href="/assets/css/responsive.css" rel="stylesheet">
+
+    <!-- REVOLUTION NAVIGATION STYLES -->
+    <link rel="stylesheet" type="text/css" href="/assets/revolution/css/layers.css">
+    <link rel="stylesheet" type="text/css" href="/assets/revolution/css/navigation.css">
+    <link rel="stylesheet" type="text/css" href="/assets/revolution/css/settings.css">
+    <link rel="stylesheet" type="text/css" href="/assets/revolution/fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css">
+    <link rel="stylesheet" type="text/css" href="/assets/revolution/fonts/font-awesome/css/font-awesome.css">
+
+</head>
+<body>
+
+    <!-- Page loader Start -->
+    <div id="pageloader">
+        <div class="loader-item">
+            <div class="loader">
+                <div class="spin"></div>
+                <div class="bounce"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Page loader End -->
+
+    
+    <%- include(`../partials/header`) %>
+
+    <%- body %>
+
+          <!-- Main Footer Start -->
+    <footer class="wide-tb-70 bg-light-gray pb-0">
+        <div class="container">
+            <div class="row">
+
+                <!-- Column First -->
+                <div style="display: flex; flex-direction: column; align-items: center;justify-content: center; min-width: 100%;" class="col-lg-4 col-md-6 wow fadeInLeft" data-wow-duration="0" data-wow-delay="0s">
+                    
+
+                    <h3 id="contactInformation" class="footer-heading">Our Socials</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="icofont-facebook"></i></a>
+                        <a href="#"><i class="icofont-twitter"></i></a>
+                        <a href="#"><i class="icofont-whatsapp"></i></a>
+ 
+                    </div>
+                </div>
+                <!-- Column First -->
+
+
+                <!-- Column Third -->
+              
+                <!-- Column Third -->
+
+            </div>
+        </div>
+
+    </footer>
+    <!-- Main Footer End -->
+
+    <!-- Search Popup Start -->
+    <div class="overlay overlay-hugeinc">
+        <form class="form-inline mt-2 mt-md-0">
+            <div class="form-inner">
+                <div class="form-inner-div d-inline-flex align-items-center no-gutters">
+                    <div class="col-auto">
+                        <i class="icofont-search"></i>
+                    </div>
+                    <div class="col">
+                        <input class="form-control w-100 p-0" type="text" placeholder="Search" aria-label="Search">
+                    </div>
+                    <div class="col-auto">
+                        <a href="#" class="overlay-close link-oragne"><i class="icofont-close-line"></i></a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- Search Popup End -->
+
+    <!-- Back To Top Start -->
+    <a id="mkdf-back-to-top" href="#contactInformation" class="off"><i class="icofont-rounded-up"></i></a>
+<a id="mkdf-customerSupport" href="/customersupport" class="off"><i class="icofont-chat"></i></a>
+
+    <!-- Back To Top End -->
+
+    <!-- Request Modal -->
+    <div class="modal fade" id="request_popup" tabindex="-1" role="dialog" aria-hidden="true">
+        <%- include(`../partials/requestQuote`) %>
+    </div>
+    <!-- Request Modal -->
+       <%- include(`../partials/mainScripts`) %>
+</body>
+</html>
+
+
+
+
+
+

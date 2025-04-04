@@ -1,0 +1,158 @@
+
+<div class="modal-dialog modal-dialog-centered request_popup modal-xl modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+        <div class="modal-body p-0">
+            <!-- Contact Details Start -->
+            <section class="pos-rel bg-light-gray">
+                <div class="container-fluid p-0">
+                    <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="icofont-close-line"></i>
+                    </a>
+                    <div class="d-flex justify-content-end no-gutters mb-spacer-md">
+                        <!-- <div class="col bg-fixed bg-img-7 request_pag_img">
+                            &nbsp;
+                        </div> -->
+
+
+                        <div class="col-lg-7 col-12">
+                            <div class="form-content">
+                                <h2 class="h2-xl mb-4 fw-6 txt-orange">Request A Quote</h2>
+                          
+                                <form id="form" class="rounded-field">
+
+                                    <div class="row g-3 mb-4">
+                                        <div class="col-md">
+                                            <select title="Please choose a package" required="" id="freightType" name="freightType"
+                                                class="form-control wide" aria-required="true"
+                                                aria-invalid="false">
+                                                <option value="">Freight Type</option>
+                                                <option value="Type 1">Type 1</option>
+                                                <option value="Type 2">Type 2</option>
+                                                <option value="Type 3">Type 3</option>
+                                                <option value="Type 4">Type 4</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md">
+                                            <select title="Please choose a package" required="" id="incoTerms" name="incoTerms"
+                                                class="form-control wide" aria-required="true"
+                                                aria-invalid="false">
+                                                <option value="">Incoterms</option>
+                                                <option value="Type 1">Type 1</option>
+                                                <option value="Type 2">Type 2</option>
+                                                <option value="Type 3">Type 3</option>
+                                                <option value="Type 4">Type 4</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row g-3 mb-4">
+                                        <div class="col-md">
+                                            <input type="text" id="cityOfDeparture" name="cityOfDeparture" class="form-control"
+                                                placeholder="City of departure" required>
+                                        </div>
+                                        <div class="col-md">
+                                            <input type="text" id="deliveryCity" name="deliveryCity" class="form-control"
+                                                placeholder="Delivery city" required>
+                                        </div>
+                                    </div>
+                                    <div class="row g-3 mb-4">
+                                        <div class="col-md">
+                                            <input type="text" id="grossWeight" name="grossWeight" class="form-control"
+                                                placeholder="Total gross weight (KG)" required>
+                                        </div>
+                                        <div class="col-md">
+                                            <input type="text" id="dimension" name="dimension" class="form-control"
+                                                placeholder="Dimension" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="col-md">
+                                            <div class="center-head"><span class="bg-light-gray txt-orange">Your
+                                                    Personal Details</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="row g-3 mb-4">
+                                        <div class="col-md">
+                                            <input type="text" id="userName" name="userName" class="form-control mb-3"
+                                                placeholder="Your Name" required>
+                                            <input type="text" id="userEmail" name="userEmail" class="form-control mb-3"
+                                                placeholder="Email" required>
+                                            <input type="text" id="userPhoneNumber" name="userPhoneNumber" class="form-control"
+                                                placeholder="Phone Number" required>
+                                        </div>
+                                        <div class="col-md">
+                                            <textarea rows="7" id="message" placeholder="message"
+                                                class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div id="responseMessage" style="color: brown;"></div>
+                                    <div class="form-row">
+                                        <div class="col pt-3">
+                                            <button type="button" onclick="submitForm()" class="form-btn btn-theme bg-orange">Send
+                                                Message <i class="icofont-rounded-right"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Contact Details End -->
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    function submitForm() {
+        // Select form data
+        const freightType = document.getElementById('freightType').value;
+        const incoTerms = document.getElementById('incoTerms').value;
+        const cityOfDeparture = document.getElementById('cityOfDeparture').value;
+        const deliveryCity = document.getElementById('deliveryCity').value;
+        const grossWeight = document.getElementById('grossWeight').value;
+        const dimension = document.getElementById('dimension').value;
+        const userName = document.getElementById('userName').value;
+        const userEmail = document.getElementById('userEmail').value;
+        const userPhoneNumber = document.getElementById('userPhoneNumber').value;
+        const message = document.getElementById('message').value;
+    
+        // Define the data you want to send
+        const data = ({ freightType,
+            incoTerms,
+            cityOfDeparture,
+            deliveryCity,
+            grossWeight,
+            dimension,
+            userName,
+            userEmail,
+            userPhoneNumber,
+            message});
+
+
+            console.log(data);
+    
+        // Send a POST request using fetch
+        fetch('http://localhost:3600/quotation', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Handle the response from the server
+            document.getElementById('responseMessage').innerText = 'Form submitted successfully!';
+            console.log('Success:', data);
+            alert('Quotaion saved successfully!');
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            document.getElementById('responseMessage').innerText = 'There was an error submitting the form.';
+        });
+    }
+    
+</script>

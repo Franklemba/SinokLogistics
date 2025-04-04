@@ -1,0 +1,55 @@
+
+<br />
+<div class="container" id="verifyContainer">
+  <h1>Verify Your Account</h1>
+  <div id="errorDiv"></div>
+  <% if (typeof error !== 'undefined' && error !== null) { %>
+ <br>
+    <div><%= error %></div>
+  <% } else { %>
+  
+  <% } %>
+  <form class="formContainer" action="/auth/verifyCode" method="post" onsubmit="return validateLoginForm()">
+    <div class="form-group">
+      <label for="email">Enter verification code for <%=email%></label>
+      <input type="hidden" value="<%=email%>" name="email">
+      <input type="text" class="form-control" id="code" name="code" placeholder="verify code" value="" />
+    </div>
+    <br>
+    <div class="form-row text-center">
+      <button type="submit" class="form-btn mx-auto btn-theme bg-orange">Verify Code</button>
+  </div>
+  </form>
+  <br />
+
+</div>
+
+
+<script defer> 
+
+    function validateLoginForm() {
+        const email = document.getElementById("code").value;
+        const errorDiv = document.getElementById("errorDiv");
+    
+        errorDiv.innerHTML = ""; // Clear previous error messages
+    
+        if (email.trim() === "") {
+            displayErrorMessage("Code is required");
+            return false;
+        }
+    
+        if (email.length > 50) { // Allow a maximum of 50 characters for email
+            displayErrorMessage("Email must be 50 characters or less");
+            return false;
+        }
+    
+        return true;
+    }
+    
+    function displayErrorMessage(message) {
+        const errorDiv = document.getElementById("errorDiv");
+        errorDiv.textContent = message;
+    }
+    
+</script>
+

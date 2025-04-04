@@ -1,0 +1,193 @@
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<div class="main-panel">
+    <div class="content-wrapper">
+        <!-- Modal Backdrop -->
+        <div class="modal-backdrop fade show"></div>
+
+        <!-- Modal Container -->
+        <div class="modal fade show" id="request_popup" tabindex="-1" role="dialog" aria-hidden="true" style="display: block;">
+            <div class="modal-dialog modal-dialog-centered request_popup modal-xl modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h5 class="modal-title">Shipment Location</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><a href="/">home</a></span>
+                        </button>
+                    </div>
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+                        <div class="d-lg-flex justify-content-end no-gutters mb-spacer-md">
+                            <div class="col bg-fixed bg-img-7 request_pag_img" id="map">
+                                <!-- &nbsp; -->
+                            </div>
+                            <div class="col-lg-6 col-12">
+                                <div class="form-content">
+                                    <form action="#" method="post" novalidate="novalidate" class="rounded-field">
+                                        <div class="row g-3 mb-4">
+                                            <div class="col-md">
+                                                <p>Shipment ID : <span id="shipmentNumber"><%=shipment.shipmentNumber %></span></p>
+                                            </div>
+                                            <div class="col-md">
+                                                <p>Departure Date : <span><%=shipment.departureDate.toLocaleDateString('en-GB') %></span></p>
+                                            </div>
+                                        </div>
+                                        <div class="row g-3 mb-4">
+                                            <div class="col-md">
+                                                <p>Current Hub : <span id="currentHub"><%=shipment.currentHub %></span></p>
+                                            </div>
+                                            <div class="col-md">
+                                                <p>Next Hub : <span id="nextHub"></span></p>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal Container -->
+    </div>
+</div>
+
+
+
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+
+
+    var map = L.map('map');
+  
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+  }).addTo(map);
+  
+  // Define port coordinates and names
+  var ports = [
+    { name: 'Shanghai, China', coordinates: [31.2304, 121.4737] },
+    { name: 'Hong Kong, Japan', coordinates: [22.3193, 114.1694] },
+    { name: 'Port Klang, Malaysia', coordinates: [3.0366, 101.4431] },
+    { name: 'Colombo, Sri Lanka', coordinates: [6.9271, 79.8612] },
+    { name: 'Mombasa, Kenya', coordinates: [-4.0435, 39.6682] },
+    { name: 'Durban, South Africa', coordinates: [-29.8587, 31.0218] },
+    { name: 'Lusaka, Zambia', coordinates: [-15.4082, 28.2871] }
+  ];
+  
+  // Add markers for ports
+  var portMarkers = [];
+  ports.forEach(function(port) {
+    var marker = L.marker(port.coordinates).addTo(map);
+    marker.bindPopup(port.name);
+    marker.openPopup(port.name); // Open the popup immediately
+    portMarkers.push(marker);
+  });
+  
+  
+  // Get bounds of all markers
+  var bounds = L.latLngBounds(portMarkers.map(function(marker) {
+    return marker.getLatLng();
+  }));
+  
+  // Fit map to the bounds
+  // map.fitBounds(bounds);
+  
+  
+  // Fit map to the bounds
+  map.fitBounds(bounds);
+  
+  
+  
+  // Example route from China to Zambia
+    var china = L.latLng(31.2304, 121.4737);
+    var japan = L.latLng(22.3193, 114.1694);
+    var malaysia = L.latLng(3.0366, 101.4431);
+    var sri_lanka = L.latLng(6.9271, 79.8612);
+    var kenya = L.latLng(-4.0435, 39.6682);
+    var zambia = L.latLng(-13.1339, 27.8493);
+    var south_africa = L.latLng(-29.8587, 31.0218);
+  
+    var route = [ china, japan, malaysia, sri_lanka, kenya, zambia, south_africa ];
+  
+    var polyline = L.polyline(route, { color: 'red' }).addTo(map);
+    map.fitBounds(polyline.getBounds());
+  
+
+
+
+    // fetches
+
+const btnReq = document.getElementById('btnReq');
+const shipmentNumber = document.getElementById('shipmentNumber');
+const shipmentId = document.getElementById('shipmentId');
+const departureDate = document.getElementById('departureDate');
+const currentHub = document.getElementById('currentHub');
+const next_Hub = document.getElementById('nextHub');
+
+
+// Find the index of 'Port Klang, Malaysia'
+var index = ports.findIndex(port => port.name === currentHub.textContent);
+
+
+var nextHub;
+// Access the port object by index
+if (index == 6){
+   nextHub = null;
+}else{
+    nextHub = ports[index + 1];
+}
+
+  next_Hub.innerText = nextHub.name    //defining the next Hub
+
+
+
+
+ 
+displayShipments(shipmentNumber,currentHub.textContent)
+
+
+ // Function to display shipments data
+ function displayShipments(shipmentNo, currentHub) {
+
+const coordinates = findCoordinatesByName(currentHub);
+console.log("Coordinates: "+coordinates);
+
+var myIcon = L.icon({
+    iconUrl: '/assets/images/newOutput.gif',
+    iconSize: [38, 60],
+    iconAnchor: [22, 59],
+    popupAnchor: [-3, -60],
+});
+
+// Add the marker
+var marker = L.marker([coordinates[0], coordinates[1]], {
+    icon: myIcon
+}).addTo(map);
+
+// Add the text label
+var label = L.divIcon({
+    className: 'map-label',
+    html: '<p id = "fish">' + currentHub + '</p>',
+    iconAnchor: [0, 0]
+});
+
+L.marker([coordinates[0], coordinates[1]], {
+    icon: label
+}).addTo(map);
+
+}
+
+function findCoordinatesByName(portName) {
+    // Filter the ports array based on the name
+    const port = ports.find(port => port.name === portName);
+    
+    // If port is found, return its coordinates, otherwise return null
+    return port ? port.coordinates : null;
+}
+
+
+</script>
