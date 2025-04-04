@@ -50,8 +50,8 @@ p:last-child{
 :root {
     scroll-behavior: inherit;
     --font-body: "Outfit", sans-serif;
-    --primary-color: #fe8704;
-    --secondary-color: #232135;
+    --primary-color: #15C91C;
+    --secondary-color: #166105;
     --main-dark-color: #666;
     --bg-light-theme: #fef9f5;
     --bg-white: #FFF;
@@ -586,7 +586,7 @@ h2.h2-xl { font-size: 1.5rem; }     /* 24px */
 	box-shadow:none;
 }
 .theme-accordian .panel-default > .panel-heading{
-	background-color:#f07039;
+	background-color:#15C91C;
 	border-radius:0;
 	padding:0;
 }
